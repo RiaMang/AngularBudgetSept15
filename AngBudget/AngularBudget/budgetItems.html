@@ -1,0 +1,56 @@
+﻿<h3>This is the budgetItems page</h3>
+<div ng-controller="biCtrl as bic">
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
+            <div class="well with-header  with-footer">
+                <div class="header bg-blue">
+                    Budget Items
+                    <a ui-sref=".create" href="" class="pull-right">Create New</a>
+                </div>
+                <table class="table table-hover">
+                    <thead class="bordered-darkorange">
+                        <tr>
+                            <th>
+                                Description
+                            </th>
+                            <th>
+                                Amount
+                            </th>
+                            <th>
+                                Edit
+                            </th>
+
+                            <th>Delete </th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="bi in bic.budgetItems">
+
+                        <tr>
+                            <td>
+                                {{bi.Name}}
+                            </td>
+                            <td>
+                                {{bi.Amount}}
+                            </td>
+                            <td>
+                                <a class="ed btn btn-default" ui-sref=".edit" href="" type="button"><i class="icon glyphicon glyphicon-edit"></i></a>
+                            </td>
+
+                            <td>
+                                <a class="btn btn-default" ui-sref=".del" href=""><i class="icon glyphicon glyphicon-trash"></i></a>
+
+                            </td>
+                        </tr>
+
+                    </tbody>
+                </table>
+
+
+            </div>
+
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <div ui-view> </div>
+        </div>
+    </div>
+</div>

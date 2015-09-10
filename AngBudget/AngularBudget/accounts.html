@@ -1,0 +1,69 @@
+﻿<!--<div>
+    <h3>This is the accounts page</h3>
+    <p>This page demonstrates <span class="text-danger">nested</span> views.</p>
+
+    <a ui-sref=".create" class="btn btn-primary">Create</a>
+    <a ui-sref=".edit" class="btn btn-danger">Edit</a>
+</div>
+<div ui-view>
+
+</div>-->
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 col-md-6">
+            <div class="well with-header  with-footer">
+                <div class="header bg-blue">
+                    Accounts
+                    <a ui-sref=".create" href="" class="pull-right">Create New</a>
+                </div>
+                <table class="table table-hover">
+                    <thead class="bordered-darkorange">
+                        <tr>
+                            <th>
+                                Name
+                            </th>
+                            <th>
+                                Balance
+                            </th>
+                            <th>
+                                Edit
+                            </th>
+                            <th>Details </th>
+                            <th>Delete </th>
+                        </tr>
+                    </thead>
+                    <tbody ng-repeat="acc in Accounts">
+
+                        <tr>
+                            <td>
+                                {{acc}}
+                            </td>
+                            <td>
+                                acc.Balance
+                            </td>
+                            <td>
+                                <a class="ed btn btn-default" ui-sref=".edit" href="" data-id="{{acc.Id}}" type="button"><i class="icon glyphicon glyphicon-edit"></i></a>
+                            </td>
+                            <td>
+                                <a class="btn btn-default" ui-sref="accTrans" href="" type="button"><i class="icon glyphicon glyphicon-list"></i></a>
+                            </td>
+                            <td>
+                                <a class="btn btn-default" ui-sref=".del" href="" data-id="{{acc.Id}}"><i class="icon glyphicon glyphicon-trash"></i></a>
+
+                            </td>
+                        </tr>
+                       
+                        
+                    </tbody>
+                </table>
+
+
+            </div>
+
+        </div>
+        <div class="col-xs-12 col-md-6">
+            <div ui-view> </div>
+        </div>
+    </div>
+</div>
