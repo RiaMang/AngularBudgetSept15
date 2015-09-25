@@ -1,4 +1,6 @@
-﻿using AngularBudget.Models;
+﻿using AngularBudget.Helpers;
+using AngularBudget.Models;
+using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,65 +30,72 @@ namespace AngularBudget.Controllers
         }
 
         [HttpPost]
+        [Models.Authorize]
         [Route("GetGroup")]
-        public async Task<Household> GetGroup(ControllerParams selected)
+        public async Task<List<Household>> GetGroup(ControllerParams selected)
         {
-            return await db.Households.FindAsync(selected.HId);
+            //    var group = await db.Households.FindAsync(selected.HId);
+            //    return Ok(group);
+            return await db.GetGroup(selected.HId); 
         }
 
         [HttpPost]
+        [Models.Authorize]
         [Route("GetUsers")]
-        public  List<ApplicationUser> GetUsers(ControllerParams selected)
+        public async Task<List<ApplicationUser>> GetUsers(ControllerParams selected)
         {
-            return db.Users.Where(u=>u.HouseholdId == selected.HId).ToList();
+            //var users = db.Users.Where(u=>u.HouseholdId == selected.HId).ToList();
+            //return Ok(users);
+            return await db.GetUsers(selected.HId);
         }
 
         [HttpPost]
         [Route("CreateJoinHousehold")]
-        public void  CreateJoinHousehold(HouseholdViewModel hvm)
+        public IHttpActionResult  CreateJoinHousehold(HouseholdViewModel hvm)
         {
             //string err = "";
-            //var user = db.Users.Find(User.Identity.GetUserId());
-            //if (hvm.Code == null) // create household
-            //{
-            //    if (hvm.Name == null)
-            //        return err;
-            //    Household h = new Household { Name = hvm.Name };
-            //    db.Households.Add(h);
-            //    db.SaveChanges();
-            //    h.AddCategories();
+            var user = db.Users.Find(User.Identity.GetUserId());
+            if (hvm.Code == null) // create household
+            {
+                if (hvm.Name == null)
+                    return BadRequest("Household Name must be provided.");
+                Household h = new Household { Name = hvm.Name };
+                db.Households.Add(h);
+                db.SaveChanges();
+                h.AddCategories();
 
-            //    user.HouseholdId = h.Id;
-            //}
-            //else // join household
-            //{
+                user.HouseholdId = h.Id;
+            }
+            else // join household
+            {
 
-            //    var invite = db.Invitations.FirstOrDefault(m => m.Code == hvm.Code);
-            //    if (invite != null && user.Email == invite.Email)
-            //    {
-            //        user.HouseholdId = invite.HouseholdId;
-            //        db.Entry(user).Property(p => p.HouseholdId).IsModified = true;
-            //    }
-            //    else
-            //    {
-            //        ViewBag.Error = "Sorry, The code and email combination does not match. ";
-            //        return View();
-            //    }
+                var invite = db.Invitations.FirstOrDefault(m => m.Code == hvm.Code);
+                if (invite != null && user.Email == invite.Email)
+                {
+                    user.HouseholdId = invite.HouseholdId;
+                    db.Entry(user).Property(p => p.HouseholdId).IsModified = true;
+                }
+                else
+                {
+                    return BadRequest("Sorry, The code and email combination does not match. ");
+                    
+                }
 
-            //}
-            ////ApplicationSignInManager SignInManager = HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+            }
 
-            ////HttpContext.GetOwinContext().Authentication.SignOut();
-            ////await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+            // REFRESH AUTHENTICATION
+            //ApplicationSignInManager SignInManager = HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
+
+            //HttpContext.GetOwinContext().Authentication.SignOut();
+            //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
             //await ControllerContext.HttpContext.RefreshAuthentication(user);
-            //db.SaveChanges();
-
-            //return RedirectToAction("Dashboard");
-            //return await db.GetUsers(selected.HId);
+            db.SaveChanges();
             
+            return Ok();
         }
 
         [HttpPost]
+        [Models.Authorize]
         [Route("InviteUsers")]
         public async Task<List<ApplicationUser>> InviteUsers(ControllerParams selected)
         {
@@ -95,6 +104,7 @@ namespace AngularBudget.Controllers
         }
 
         [HttpPost]
+        [System.Web.Http.Authorize]
         [Route("JoinHousehold")]
         public async Task<List<ApplicationUser>> JoinHousehold(ControllerParams selected)
         {
@@ -102,6 +112,7 @@ namespace AngularBudget.Controllers
         }
 
         [HttpPost]
+        [Models.Authorize]
         [Route("LeaveHousehold")]
         public async Task<List<ApplicationUser>> LeaveHousehold(ControllerParams selected)
         {

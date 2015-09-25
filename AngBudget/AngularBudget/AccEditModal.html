@@ -1,0 +1,17 @@
+﻿
+<div class="modal-header">
+    <h3 class="modal-title">
+        Edit Account
+        <button class="pull-right btn btn-default" ng-click="AccMdCtrl.cancel()">X</button>
+    </h3>
+</div>
+<div class="modal-body">
+    
+    <input type="text" ng-model="AccMdCtrl.account.Name" />
+    <input type="number" ng-model="AccMdCtrl.account.Balance" />
+  
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="AccMdCtrl.Edit(AccMdCtrl.account.id)">Edit</button>
+    <button class="btn btn-warning" ng-click="AccMdCtrl.cancel()">Cancel</button>
+</div>

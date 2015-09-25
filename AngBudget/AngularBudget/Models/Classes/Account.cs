@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -18,7 +19,9 @@ namespace AngularBudget.Models
         public decimal Balance { get; set; }
         public int HouseholdId { get; set; }
 
+        [JsonIgnore]
         public virtual Household Household { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Transaction> Transactions { get; set; }
     }
 }

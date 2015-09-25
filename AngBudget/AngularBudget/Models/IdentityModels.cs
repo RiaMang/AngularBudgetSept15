@@ -7,6 +7,7 @@ using System.Data.Entity;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using Newtonsoft.Json;
 
 namespace AngularBudget.Models
 {
@@ -15,7 +16,7 @@ namespace AngularBudget.Models
     {
         public string Name { get; set; }
         public int? HouseholdId { get; set; }
-
+        [JsonIgnore]
         public virtual Household Household { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager, string authenticationType)

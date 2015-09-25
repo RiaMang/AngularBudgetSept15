@@ -7,7 +7,8 @@ angular.module('app')
 
     var _authentication = {
         isAuth: false,
-        userName: ""
+        userName: "",
+        householdId: 0
     };
 
     var _saveRegistration = function (registration) {
@@ -32,6 +33,7 @@ angular.module('app')
 
             _authentication.isAuth = true;
             _authentication.username = response.userName;
+            _authentication.householdId = response.householdId;
 
             deferred.resolve(response);
 
@@ -50,6 +52,7 @@ angular.module('app')
 
         _authentication.isAuth = false;
         _authentication.userName = "";
+        _authentication.householdId = 0;
 
     };
 
@@ -59,6 +62,7 @@ angular.module('app')
         if (authData) {
             _authentication.isAuth = true;
             _authentication.userName = authData.username;
+            _authentication.householdId = authData.householdId;
         }
 
     };

@@ -38,7 +38,9 @@ namespace AngularBudget
                 TokenEndpointPath = new PathString("/Token"),
                 Provider = new ApplicationOAuthProvider(PublicClientId),
                 AuthorizeEndpointPath = new PathString("/api/Account/ExternalLogin"),
-                AccessTokenExpireTimeSpan = TimeSpan.FromDays(14),
+                AccessTokenExpireTimeSpan = TimeSpan.FromHours(2),
+                RefreshTokenProvider = new RefreshTokenProvider(),
+                // In production mode set AllowInsecureHttp to false
                 AllowInsecureHttp = true
             };
 

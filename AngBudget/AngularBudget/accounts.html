@@ -33,23 +33,23 @@
                             <th>Delete </th>
                         </tr>
                     </thead>
-                    <tbody ng-repeat="acc in Accounts">
+                    <tbody ng-repeat="acc in account.Accounts">
 
                         <tr>
                             <td>
-                                {{acc}}
+                                {{acc.Name}}
                             </td>
                             <td>
-                                acc.Balance
+                                {{acc.Balance}}
                             </td>
                             <td>
-                                <a class="ed btn btn-default" ui-sref=".edit" href="" data-id="{{acc.Id}}" type="button"><i class="icon glyphicon glyphicon-edit"></i></a>
+                                <button class="btn btn-default" ng-click="acc.open(acc.Id)"><i class="icon glyphicon glyphicon-edit"></i></button>
                             </td>
                             <td>
-                                <a class="btn btn-default" ui-sref="accTrans" href="" type="button"><i class="icon glyphicon glyphicon-list"></i></a>
+                                <a class="btn btn-default" ui-sref="accTrans({AccId: acc.Id})" href="" type="button"><i class="icon glyphicon glyphicon-list"></i></a>
                             </td>
                             <td>
-                                <a class="btn btn-default" ui-sref=".del" href="" data-id="{{acc.Id}}"><i class="icon glyphicon glyphicon-trash"></i></a>
+                                <a class="btn btn-default" ui-sref=".del({id: acc.Id})" href="" data-id="{{acc.Id}}"><i class="icon glyphicon glyphicon-trash"></i></a>
 
                             </td>
                         </tr>

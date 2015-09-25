@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -21,11 +22,15 @@ namespace AngularBudget.Models
         public DateTimeOffset? RemovedDate { get; set; }
         //public bool IsDeleted { get; set; }
 
-
+        [JsonIgnore]
         public virtual ICollection<ApplicationUser> Users { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Account> Accounts { get; set; }
+        [JsonIgnore]
         public virtual ICollection<BudgetItem> BudgetItems { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Invitation> Invitations { get; set; }
+        [JsonIgnore]
         public virtual ICollection<Category> Categories { get; set; }
     }
 }

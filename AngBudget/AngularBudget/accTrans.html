@@ -14,7 +14,7 @@
         <div class="col-xs-12 col-md-6">
             <div class="well with-header  with-footer">
                 <div class="header bg-blue">
-                    Account-Transactions
+                    Account-Transactions - {{trans.AccId}}
                     <a ui-sref=".create" href="" class="pull-right">Create New</a>
                 </div>
                 <table class="table table-hover">
@@ -35,19 +35,19 @@
                     </thead>
                     <tbody>
 
-                        <tr>
+                        <tr ng-repeat="tr in trans.Transactions">
                             <td>
-                                tr.Description
+                                {{tr.Description}}
                             </td>
                             <td>
-                                tr.Amount
+                                {{tr.Amount}}
                             </td>
                             <td>
-                                <a class="ed btn btn-default" ui-sref=".edit" href="" data-id="{{tr.Id}}" type="button"><i class="icon glyphicon glyphicon-edit"></i></a>
+                                <a class="ed btn btn-default" ui-sref=".edit({id: tr.id})"><i class="icon glyphicon glyphicon-edit"></i></a>
                             </td>
 
                             <td>
-                                <a class="btn btn-default" ui-sref=".del" href="" data-id="{{tr.Id}}"><i class="icon glyphicon glyphicon-trash"></i></a>
+                                <a class="btn btn-default" ui-sref=".del({id: tr.id})"><i class="icon glyphicon glyphicon-trash"></i></a>
 
                             </td>
                         </tr>
